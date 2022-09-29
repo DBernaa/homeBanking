@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="shortcut icon" href="../assets/favicon-16x16.png" type="image/x-icon">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+  <main id="app" v-cloak>
+    <div class="sidebar" >
+      <div class="logo_content">
+        <div class="logo">
+          <i class='bx bxs-bank'></i>
+          <div class="logo_name"> Brothers Bank</div>
+        </div>
+        <i class='bx bx-menu toggleActive' @click="toggle" id="btn"></i>
+      </div>
+      <ul>
+        <li>
+          <i class='bx bx-search'></i>
+          <input type="text" placeholder="Search...">
+        </li>
+        <li>
+          <a href="./index.html">
+            <i class='bx bxs-home'></i>
+            <span class="links_name">Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class='bx bxs-user'></i>
+            <span class="links_name">User</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class='bx bxs-user-account'></i>
+            <span class="links_name">Accounts</span>
+          </a>
+        </li>
+        <li>
+          <a href="./cards.html">
+            <i class='bx bxs-credit-card'></i>
+            <span class="links_name">Cards</span>
+          </a>
+        </li>
+        <li>
+          <a href="./transfer.html">
+            <i class='bx bx-transfer'></i>
+            <span class="links_name">Transfer</span>
+          </a>
+        </li>
+        <li>
+          <a href="./loan-application.html">
+            <i class='bx bx-money'></i>
+            <span class="links_name">Loans</span>
+          </a>
+        </li>
+      </ul>
+      <div class="profile_content">
+        <div class="profile">
+          <div class="profile_details">
+            <img src="../assets/melbamorel.jpeg" alt="melbamorel">
+            <div class="name_job">
+              <div class="name">Melba Morel</div>
+              <div class="job">Software Engineer</div>
+            </div>
+          </div>
+          <i class='bx bx-log-out' id="log_out" @click="logOut"></i>
+        </div>
+      </div>
+    </div>
+    <div class="home_content">
+      <div class="text d-flex justify-content-evenly align-items-center pb-1">
+        <span><i class='bx bxs-map-pin'></i> A108 Adam Street, NY, US </span>
+        <span><i class='bx bxs-phone'></i> +1 5589 55488 55</span>
+        <span><i class='bx bxs-envelope'></i> brothersbank@gmail.com</span>
+      </div>
+      <div>
+        <div class="topHeader animate__animated animate__backInLeft">
+          <img src="" alt="">
+          <h2 class="text-center fw-bolder">Welcome {{clients.firstName}}!</h2>
+          <p class="text-center fw-bolder"></p>
+        </div>
+        <div class="d-flex">
+          <div class="myAccounts col-8 mt-2">
+            <h4 class="fw-bolder mb-3">Here you can check your accounts details!</h4>
+            <div class="mb-1">
+              <h4>If you want to create an account, please click on the button below!</h4>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add account</button>
+            </div>
+            
+            <!-- modal --> 
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+              aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Account details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <h5>Which account type do you prefer?</h5>
+                    <select v-model="accountType" name="" >
+                      <option value="SAVING">SAVING</option>
+                      <option value="CURRENT">CURRENT</option>
+                    </select>
+                    
+
+                  </div>
+                  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" @click="newAccount">Create it</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row cardWrap">
+              <div class="container_">
+                <div class="card_" v-for="account in accounts">
+
+                  <div class="face face1">
+                    <div class="content">
+                      <img src="../assets/accounts.png">
+                      <h3>{{account.number}}</h3>
+                    </div>
+                  </div>
+                  <div class="face face2">
+                    <div class="content">
+                      <h4 class="fw-bolder">{{clients.firstName}} {{clients.lastName}}</h4>
+                      <h4 class="fw-bolder">Balance: ${{account.balance}}</h4>
+                      <h6 class="fw-bolder">Account:{{account.accountType}}</h6>
+                      <a :href="'./account.html?id='+account.id" class="btn btn-primary">View Transactions</a>
+                    </div>
+                    <i class='bx bxs-message-square-x removeButton' @click="functionRemove(account.id)"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+                  
+          <div class="d-flex col-4 flex-column  boxSize2 align-items-center mt-2">
+            <div class="">
+              <img src="../assets/melbamorel.jpeg" alt="" class="clientDetailsImg">
+              <h3 class="text-light textNone">{{clients.firstName + " "+ clients.lastName}}</h3>
+              <h5 class="text-light textNone">{{clients.email}}</h5>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+
+      <div class="loanTitle">
+        <h4>Do you want to apply a loan?</h4>
+        <p>If you want, please click on the button below!</p>
+        <div>
+          <button class="btn btn-primary  text-center" @click="applyLoan">Apply loan</button>
+          <p v-if="loans.length == 0"> You not have loans.</p>
+        </div>
+        <div class="row justify-content-evenly">
+
+
+
+          <div id="container" v-for="loan in loans">
+
+            <div class="product-details text-center">
+              <h1>{{loan.name}}</h1>
+              <h4 class="mt-2 ">You have to pay:</h4>
+              <h4 class="mt-2 ">$ {{loan.amount}}</h4>
+              <h4 class="mt-2 ">Payments:</h4>
+              <h4 class="mt-2 ">{{loan.payments}}</h4>
+            </div>
+
+            <div class="product-image">
+
+              <img v-if="loan.name=='Hipotecario'" class="loanimg" src="../assets/hipotecario.jpg" alt="">
+              <img v-if="loan.name=='Personal'" class="loanimg" src="../assets/personal.jpg" alt="">
+              <img v-if="loan.name=='Automotriz'" class="loanimg" src="../assets/automotriz.jpg" alt="">
+
+              <div class="info">
+                <h2> Description</h2>
+                <p v-if="loan.name=='Hipotecario'" class="information pt-3">It is an investment, instead of paying the
+                  rent or lease monthly, you can make the payments of the installments of your own home. It offers
+                  payment facilities, we can choose the form of repayment that best suits our needs.</p>
+                <p v-if="loan.name=='Personal'" class="information pt-3">Personal loans, unlike others such as mortgages
+                  or automobiles, do not require additional guarantees. That is, the debtor responds with his present
+                  and future assets. Generally, personal loans do not require a guarantee.</p>
+                <p v-if="loan.name=='Automotriz'" class="information pt-3">Thanks to an Automotive Credit, you can drive
+                  the vehicle you have always dreamed of, with affordable installments and the support of a good
+                  financial company. The advantages of this loan are many and the requirements are easy to achieve by
+                  most people.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+  </main>
+  <!-- <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-info">
+              <h3>Brothers Bank</h3>
+              <p>
+                A108 Adam Street <br>
+                NY 535022, USA<br><br>
+                <strong>Phone:</strong> +1 5589 55488 55<br>
+                <strong>Email:</strong> info@example.com<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong></strong>. All Rights Reserved
+      </div>
+    </div>
+  </footer> -->
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./accounts.js"></script>
+
+</body>
+
+</html>

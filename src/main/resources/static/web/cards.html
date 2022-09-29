@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cards</title>
+    <link rel="shortcut icon" href="../assets/favicon-16x16.png" type="image/x-icon">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+    <main id="app">
+        <div class="sidebar">
+            <div class="logo_content">
+                <div class="logo">
+                    <i class='bx bxs-bank'></i>
+                    <div class="logo_name"> Brothers Bank</div>
+                </div>
+                <i class='bx bx-menu toggleActive' id="btn" @click="toggle"></i>
+            </div>
+            <ul>
+                <li>
+                    <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+                <li>
+                    <a href="./index.html">
+                        <i class='bx bxs-home'></i>
+                        <span class="links_name">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-user'></i>
+                        <span class="links_name">User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./accounts.html">
+                        <i class='bx bxs-user-account'></i>
+                        <span class="links_name">Accounts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-credit-card'></i>
+                        <span class="links_name">Cards</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./transfer.html">
+                        <i class='bx bx-transfer'></i>
+                        <span class="links_name">Transfer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./loan-application.html">
+                        <i class='bx bx-money'></i>
+                        <span class="links_name">Loans</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="profile">
+                    <div class="profile_details">
+                        <img src="../assets/melbamorel.jpeg" alt="melbamorel">
+                        <div class="name_job">
+                            <div class="name">Melba Morel</div>
+                            <div class="job">Software Engineer</div>
+                        </div>
+                    </div>
+                    <i class='bx bx-log-out' id="log_out" @click="logOut"></i>
+                </div>
+            </div>
+        </div>
+        <div class="home_content">
+            <div class="text d-flex justify-content-evenly align-items-center mb-1">
+                <span><i class='bx bxs-map-pin'></i> 96 Ernser Vista Suite 437, NY, US </span>
+                <span><i class='bx bxs-phone'></i> (123) 456-78-910</span>
+                <span><i class='bx bxs-envelope'></i> Info@colorlib.com</span>
+            </div>
+
+            <div class="topHeader animate__animated animate__backInLeft" >
+                <img src="" alt="">
+                <h2 class="text-center fw-bolder">My Cards!</h2>
+                <p class="text-center fw-bolder"></p>
+            </div>
+            
+
+            <div class="pt-4 mx-4">
+                <h4>If you want to create a card, please click on the button below!</h4>
+                <div class="">
+                    <button class="mt-4 button" v-if="cards.length < '6'"><a  href="./create-cards.html">Create
+                            Cards</a></button>
+                    <h4 v-else>You can only have 6 cards</h4>
+                </div>
+              </div>
+
+            <div class="d-flex flex-wrap justify-content-center gap-5 mt-5 ">
+
+
+
+                <!-- Button trigger modal -->
+                
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLabel">Cards</h3>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div v-for="card in cards" class="modal-body">
+                                    <label for=""><input v-model="cardId" :value="card.id" type="radio">{{card.number}}</label>
+                                    
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-danger" @click="removeCards(cardId)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card col-4 " v-for="card in cards">
+
+                    <div :class="{ 'card__part' : card.cardColor == 'GOLD' , 'card__part2' : card.cardColor == 'SILVER' , 'card__part3' : card.cardColor == 'TITANIUM' }"
+                        class="card__front">
+                        <img style="color: #fff;" class="card__front-square card__square"
+                            src="../assets/bank-solid-24.png">
+                        <img class="card__front-logo card__logo" src="../assets/Visa_Logo.png">
+
+                        <p v-if="card.cardColor == 'SILVER'" class="card_numer text-dark fw-bolder ">{{card.number}}</p>
+                        <p v-else class="card_numer">{{card.number}}</p>
+
+                        <div class="card__space-75">
+                            <span class="card__label">Card holder</span>
+                            <p class="card__info text-white">{{card.cardHolder}}</p>
+                            <p class="text-white fw-2">{{card.cardType}}</p>
+                        </div>
+                        <div class="card__space-25">
+                            <span class="card__label">Expires</span>
+                            <p class="card__info">{{newDate(card.thruDate)}}</p>
+                            <p v-show="date >= card.thruDate" class="text-danger">Expired</p>
+                        </div>
+                    </div>
+
+                    <div :class="{ 'card__part' : card.cardColor == 'GOLD' , 'card__part2' : card.cardColor == 'SILVER' , 'card__part3' : card.cardColor == 'TITANIUM' }"
+                        class="card-body card__back">
+                        <div class="card__black-line"></div>
+                        <div class="card__back-content">
+                            <div class="card__secret">
+                                <p class="card__secret--last">{{card.cvv}}</p>
+                            </div>
+                            <img class="card__back-square card__square" src="../assets/Visa_Logo.png">
+                            <img class="card__back-logo card__logo" src="../assets/bank-solid-24.png">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="pt-4  mx-4">
+                <h4>Did you lose your card?</h4>
+                <p>If so, we recommend that you remove it to avoid problems.</p>
+                    <button type="button" class="button mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Remove Card
+                    </button>               
+            </div>
+
+            
+
+    </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./cards.js"></script>
+</body>
+
+</html>

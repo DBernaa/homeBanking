@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="shortcut icon" href="../assets/favicon-16x16.png" type="image/x-icon">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="sidebar" @click="toggle">
+            <div class="logo_content">
+                <div class="logo">
+                    <i class='bx bxs-bank'></i>
+                    <div class="logo_name"> Brothers Bank</div>
+                </div>
+                <i class='bx bx-menu toggleActive' id="btn"></i>
+            </div>
+            <ul>
+                <li>
+                    <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+                <li>
+                    <a href="./index.html">
+                        <i class='bx bxs-home'></i>
+                        <span class="links_name">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-user'></i>
+                        <span class="links_name">User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./accounts.html">
+                        <i class='bx bxs-user-account'></i>
+                        <span class="links_name">Accounts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./cards.html">
+                        <i class='bx bxs-credit-card'></i>
+                        <span class="links_name">Cards</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./transfer.html">
+                        <i class='bx bx-transfer'></i>
+                        <span class="links_name">Transfer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./loan-application.html">
+                        <i class='bx bx-money'></i>
+                        <span class="links_name">Loans</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="profile">
+                    <div class="profile_details">
+                        <img src="../assets/melbamorel.jpeg" alt="melbamorel">
+                        <div class="name_job">
+                            <div class="name">Melba Morel</div>
+                            <div class="job">Software Engineer</div>
+                        </div>
+                    </div>
+                    <i class='bx bx-log-out' id="log_out" @click="logOut"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="home_content">
+            <div class="text d-flex justify-content-evenly align-items-center pb-1">
+                <span><i class='bx bxs-map-pin'></i> A108 Adam Street, NY, US </span>
+                <span><i class='bx bxs-phone'></i> +1 5589 55488 55</span>
+                <span><i class='bx bxs-envelope'></i> brothersbank@gmail.com</span>
+            </div>
+            <div class="topHeader animate__animated animate__backInLeft">
+                <img src="" alt="">
+                <h2 class="text-center fw-bolder">My transactions!</h2>
+                <p class="text-center fw-bolder"></p>
+              </div>
+            <div  class="container">
+                <table class="table mt-4">
+                    <tr class="bg-primary text-white">
+                        <td>Transaction type:</td>
+                        <td>Amount:</td>
+                        <td>Transaction Date:</td>
+                        <td>Description:</td>
+                        <td>Actual Balance:</td>
+                    </tr>
+                    <tr v-for="transactions in transaction">
+                        <td>{{transactions.type}}</td>
+                        <td :class="transactions.type == 'DEBIT'?'text-danger':'text-success'">${{transactions.amount}}</td>
+                        <td>{{transactions.date}}</td>
+                        <td>{{transactions.description}}</td>
+                        <td>$ {{transactions.balance}}</td>
+                    </tr>
+                </table>
+            </div>
+            
+        </div>
+        
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./account.js"></script>
+
+</body>
+
+</html>
